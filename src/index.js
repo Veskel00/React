@@ -2,14 +2,14 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import './index.css';
 import * as serviceWorker from './serviceWorker';
+import App from "./components/App.js";
+
 
 ReactDOM.render(
-  <h1>Hello World</h1>,
-  document.getElementById('root')
+  //element do renderowania
+  <App/>,
+  //cel, gdzie element ma się podpiąć w HTML
+  document.getElementById('root'),
 );
-
-//reactDOM przyjmuje parametry:
-//1. elementy renderowane
-//2.miejsce renderowania elementów w HTML'u
 
 serviceWorker.register();
