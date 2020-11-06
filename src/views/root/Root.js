@@ -1,5 +1,6 @@
 import React from "react";
 import "./index.css";
+import AppContext from '../../Context/Context';
 import { BrowserRouter, Route, Switch } from 'react-router-dom';
 import TwittersView from '../TwittersView/TwittersView';
 import ArticlesView from '../ArticlesView/ArticlesView';
@@ -7,23 +8,19 @@ import NotesView from '../NotesView/NotesView';
 import Header from '../../components/Header/Header';
 import Modal from '../../components/Modal/Modal';
 
-const initialStateItems = [
-  {
-    image: "https://pbs.twimg.com/profile_images/906557353549598720/oapgW_Fp.jpg",
-    name: "Dan Abramov",
-    description: "React core member",
-    twitterLink: "https://twitter.com/dan_abramov"
-  }
-];
-
 class Root extends React.Component {
   state = {
-    items: [...initialStateItems],
+    items: {
+      twitters:[],
+      articles:[],
+      notes:[],
+    },
     isModalOpen: false,
   };
 
   addItem = e => {
     e.preventDefault();
+
 
     const newItem = {
       name: e.target[0].value,
@@ -53,10 +50,14 @@ class Root extends React.Component {
 
   render() {
     const { isModalOpen } = this.state;
+    const contextElements = {
+      ...this.state,
+      additem: this.addItem,
+    }
     
     return (
       <BrowserRouter>
-        <>
+        <AppContext.Provider value={contextElements}>
           <Header openModalFn={this.openModal} />
           <h1>hello world</h1>
           <Switch>
@@ -65,7 +66,7 @@ class Root extends React.Component {
             <Route path="/notes" component={NotesView} />
           </Switch>
           { isModalOpen && <Modal closeModalFn={this.closeModal} /> }
-        </>
+        </AppContext.Provider>
       </BrowserRouter>
     );
   }
