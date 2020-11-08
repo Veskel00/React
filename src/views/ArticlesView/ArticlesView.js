@@ -1,11 +1,12 @@
 import React from 'react';
-import AppContext from '../../Context/Context';
+import AppContext from '../../context';
+import List from '../../components/List/List';
 
-const ArticlesView = () => ( 
+const ArticlesView = () => (
   <AppContext.Consumer>
-  {(context)=>(
-    <p>This is an Articles View {}</p>
-  )}
+    {(context) => (
+      <List items={context.article} />
+    )}
   </AppContext.Consumer>
 );
 
